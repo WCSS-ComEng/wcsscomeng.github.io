@@ -1,0 +1,113 @@
+header {
+    padding: 10px;
+    text-align: left;
+    background-color: white;
+    font-size: 20px;
+    color: black;
+}
+
+h2 {
+    text-align: left;
+    color: black;
+    font-size: 30px;
+    font-style: bold;
+    font-family: 'Courier New', Courier, monospace;
+    top: 10px;
+    left: 10px;
+    position: relative;
+}
+
+p {
+    text-align: left;
+    color: black;
+    font-size: 20px;
+    top: 10px;
+    left: 10px;
+    position: relative;
+}
+
+#coursePage {
+    border: 5px solid transparent;
+    background-color: white;
+    ;
+    width: 175px;
+    height: 50px;
+    text-align: center;
+    padding: 5px;
+    font-size: 20px;
+
+}
+
+#aboutPage {
+    border: 5px solid transparent;
+    background-color: white;
+    width: 175px;
+    height: 50px;
+    text-align: center;
+    padding: 5px;
+    font-size: 20px;
+
+}
+
+#contactPage {
+    border: 5px solid transparent;
+    background-color: white;
+    width: 175px;
+    height: 50px;
+    text-align: center;
+    padding: 5px;
+    font-size: 20px;
+
+}
+
+#adminLogin {
+    border: 5px solid transparent;
+    background-color: white;
+    width: 175px;
+    height: 50px;
+    text-align: center;
+    padding: 5px;
+    font-size: 20px;
+
+}
+
+.ele_inline {
+    display: inline
+}
+
+#parent {
+    width: 1255px;
+    height: 825px;
+    background-color: #CBEFFA;
+    margin: -10px;
+}
+
+.parent {
+    display: flex;
+    flex-direction: row;
+}
+
+.children {
+    display: inline-block;
+
+}
+
+#child1 {
+    position: relative;
+    width: 700px;
+    height: 500px;
+    background-color: white;
+    top: 100px;
+    left: 50px;
+
+}
+
+#child2 {
+    position: relative;
+    width: 200px;
+    height: 500px;
+    background-color: white;
+    top: 55px;
+    left: 200px;
+
+}
