@@ -8,9 +8,11 @@ Will Display:
 - Course Information
 - Contact Information
 
+All Users can Edit:
+- NeoPixel LED Light Strips
+
 These Features can be edited through the Admin Window.
 
 Admin Window has extended features:
 - Editing Course Information
 - Editing Contact Information
-- Editing LED Lights
