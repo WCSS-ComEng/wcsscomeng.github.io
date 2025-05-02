@@ -1,0 +1,8 @@
+Raspberry Pi Pico Tutorials
+- https://randomnerdtutorials.com/raspberry-pi-pico-bme680-arduino/
+- https://randomnerdtutorials.com/esp32-esp8266-mysql-database-php/
+
+To add the Pico to Arduino IDE.
+- Add the following to the "Additional Boards Manager URLs" bar under File/Preferences:
+- https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+- Under Tools/Boards/Boards Manager install Raspberry Pi Pico/RP2040/RP2350 (search for 2040)
