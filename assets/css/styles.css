@@ -108,7 +108,7 @@
 /*  Hero Section */
 
 .hero {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)), url('./images/board1.jpg');
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)), url('/images/board1.jpg');
     height: 100vh;
     background-position: center;
     background-size: cover;
