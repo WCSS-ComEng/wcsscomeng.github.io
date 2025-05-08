@@ -24,6 +24,71 @@
 
         </div>
      </nav>
+
+     <!-- Contact Form -->
+
+     <form action="action_page.php" method="POST">
+        <div>
+        <label for="fname">first name:</label>
+        <input type="text" id="fname" name="fname" placeholder="Mr" required><br>
+        </div>
+
+        <br>
+
+        <div>
+        <label for="lname">Last name:</label>
+        <input type="text" id="lname" name="lname" placeholder="Murray" required><br>
+        </div>
+
+        <br> 
+
+        <div>
+        <label for="email">School email:</label>
+        <input type="email" id="email" name="email" placeholder="abc1@ocdsb.ca">
+        </div>
+
+        <br>
+
+        <div>
+            <label for="title">Grade:</label>
+
+
+            <label>9</label>
+            <input type="radio" id="9" name="grade" value="9">
+
+            <label>10</label>
+            <input type="radio" id="10" name="grade" value="10">
+
+            <label>11</label>
+            <input type="radio" id="11" name="grade" value="11">
+
+            <label>12</label>
+            <input type="radio" id="12" name="grade" value="12">
+        </div>
+
+        <br>
+
+        <div>
+            <label for="msg">Message:</label>
+            <textarea id="msg" name="msg" rows="4" cols="50"></textarea>
+        </div>
+
+        <br>
+
+        <div>
+            <input type="reset">
+        </div>
+
+        <br>
+
+        <div>
+            <input type="submit">
+        </div>
+     </form>
+
+
+
+
      <script src="assets/js/app.js"></script>
 
 
