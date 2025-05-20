@@ -12,11 +12,14 @@ const char* ssid = STASSID;
 const char* password = STAPSK;
 const char* url = URL;
 
-Adafruit_NeoPixel pixel = Adafruit_NeoPixel(1, 20, NEO_GRB + NEO_KHZ800);
+// connected to PIN 6 / GPIO 3
+#define PIXEL_PIN 3
+Adafruit_NeoPixel pixel = Adafruit_NeoPixel(1, PIXEL_PIN, NEO_GRB + NEO_KHZ800);
 
-const int led = 20;
+
+//const int led = 1;
 String header; // stores HTTP requests
-String LEDstate = "off";
+String LEDstate = "on";
 
 unsigned long currentTime = millis();
 unsigned long previousTime = 0;
@@ -25,13 +28,14 @@ WiFiServer server(8080);
 
 void setup() {
   Serial.begin(115200);
-
   pixel.begin();
+  delay(10);
+
   pixel.setBrightness(50);
-  pixel.show();
-  
   pixel.setPixelColor(0, 255, 255, 255);
   pixel.show();
+
+  digitalWrite(LED_BUILTIN, HIGH);
 
   WiFi.mode(WIFI_STA);
   Serial.printf("connecting to '%s' with '%s'\n", ssid, password);
@@ -41,6 +45,7 @@ void setup() {
     Serial.print(".");
     delay(100);
   }
+  
   Serial.printf("\n\nconnected to WiFi\nconnect to server at %s:%d\n", WiFi.localIP().toString().c_str(), 8080);
 
   server.begin();
@@ -76,14 +81,16 @@ void loop() {
             if (header.indexOf("GET /led/on") >= 0) {
               Serial.println("LED on");
               LEDstate = "on";
+                digitalWrite(LED_BUILTIN, HIGH);
                 pixel.setPixelColor(0, 255, 255, 255);
                 pixel.show();
             }
             else if (header.indexOf("GET /led/off") >= 0) {
               Serial.println("LED off");
               LEDstate = "off";
-              pixel.setPixelColor(0, 0, 0, 0);
-              pixel.show();
+                digitalWrite(LED_BUILTIN, LOW);
+                pixel.setPixelColor(0, 0, 0, 0);
+                pixel.show();
             }
             // HTML webpage
             client.println("<!DOCTYPE html><html>");
