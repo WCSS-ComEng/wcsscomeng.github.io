@@ -14,7 +14,8 @@ const char* url = URL;
 
 // connected to PIN 6 / GPIO 3
 #define PIXEL_PIN 3
-Adafruit_NeoPixel pixel = Adafruit_NeoPixel(1, PIXEL_PIN, NEO_GRB + NEO_KHZ800);
+#define NUM_OF_PIXELS 10
+Adafruit_NeoPixel pixel = Adafruit_NeoPixel(NUM_OF_PIXELS, PIXEL_PIN, NEO_GRB + NEO_KHZ800);
 
 
 //const int led = 1;
@@ -32,8 +33,10 @@ void setup() {
   delay(10);
 
   pixel.setBrightness(50);
-  pixel.setPixelColor(0, 255, 255, 255);
-  pixel.show();
+  for (int i = 0; i <= NUM_OF_PIXELS; i++) {
+    pixel.setPixelColor(i, 255, 255, 255);
+    pixel.show();
+  }
 
   digitalWrite(LED_BUILTIN, HIGH);
 
@@ -82,15 +85,19 @@ void loop() {
               Serial.println("LED on");
               LEDstate = "on";
                 digitalWrite(LED_BUILTIN, HIGH);
-                pixel.setPixelColor(0, 255, 255, 255);
-                pixel.show();
+                for (int i = 0; i <= NUM_OF_PIXELS; i++) {
+                  pixel.setPixelColor(i, 255, 255, 255);
+                  pixel.show();
+                }
             }
             else if (header.indexOf("GET /led/off") >= 0) {
               Serial.println("LED off");
               LEDstate = "off";
                 digitalWrite(LED_BUILTIN, LOW);
-                pixel.setPixelColor(0, 0, 0, 0);
-                pixel.show();
+                for (int i = 0; i <= NUM_OF_PIXELS; i++) {
+                  pixel.setPixelColor(i, 0, 0, 0);
+                  pixel.show();
+                }
             }
             // HTML webpage
             client.println("<!DOCTYPE html><html>");
