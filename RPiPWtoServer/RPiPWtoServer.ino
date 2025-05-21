@@ -1,6 +1,5 @@
 #include <WiFi.h>
 #include <Adafruit_NeoPixel.h>
-// #include <WiFiClient.h>
 
 #ifndef STASSID
 #define STASSID "ArduinoPi"
@@ -100,15 +99,15 @@ void loop() {
                 }
             }
             // HTML webpage
-            client.println("<!DOCTYPE html><html>");
-            client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
-            client.println("<link rel=\"icon\" href=\"data:,\">");
+            client.println("<!DOCTYPE html><html>"
+              "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+              "<link rel=\"icon\" href=\"data:,\">");
 
             // CSS styling
-            client.println("<style>html { font-family: Arial; display: inline-block; margin: 0px auto; text-align: center;}");
-            client.println(".button { background-color: #800080; border: none; color: white; padding: 16px 40px;");
-            client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
-            client.println(".button2 {background-color: #000000;}</style></head>");
+            client.println("<style>html { font-family: Arial; display: inline-block; margin: 0px auto; text-align: center;}"
+              ".button { background-color: #800080; border: none; color: white; padding: 16px 40px;"
+              "text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}"
+              ".button2 {background-color: #000000;}</style></head>");
 
             // webpage heading
             client.println("<body><h1>Pico W LED Web Control Switch</h1>");
