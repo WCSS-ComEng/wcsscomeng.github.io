@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mr Murrays Website</title>
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body>
     <!-- Navbar Section -->
-     <nav class="navbar">
+    <nav class="navbar">
         <a href="/" class="navbar__logo">Murray</a>
         <div class="navbar__toggle" id="mobile-menu">
             <span class="bar"></span>
@@ -23,19 +25,25 @@
 
 
         </div>
-     </nav>
-     <!-- Hero Section -->
-      <div class="hero">
+    </nav>
+    <!-- Hero Section -->
+    <div class="hero">
         <div class="hero__content">
-            <h1>Murrays Courses</h1>
-            <p>Welcome!</p>
-            <a href="/" class="button">Get Started</a>
+            <div class="slidecontainer">
+                <input type="range" min="1" max="50" value="50%">
+                <input type="range" min="1" max="50" value="50%">
+                <input type="range" min="1" max="50" value="50%">
+            </div>
+            <form action="/action_page.php">
+                <label for="favcolor"></label>
+                <input type="color" id="favcolor" name="favcolor" value="#ff0000">
+                <p><input type="submit" value="Submit"></p>
+            </form>
         </div>
-      </div>
-
-      <script src="assets/js/app.js"></script>
+        <script src="assets/js/app.js"></script>
 
 
-   
+
 </body>
+
 </html>
