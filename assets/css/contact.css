@@ -104,3 +104,11 @@
         transform: translateY(-8px) rotate(-45deg);
     }
 }
+
+.name__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: var(--black);
+}
