@@ -1,6 +1,6 @@
 <?php
 
-$con = mysqli_connect("localhost","root","6J(9u[0(m16^","comeng_server_database");
+$con = mysqli_connect("localhost", "root", "6J(9u[0(m16^", "comeng_server_database");
 
 $fname = $_POST['fname'];
 $lname = $_POST['lname'];
@@ -12,8 +12,8 @@ $sql = "INSERT INTO `contact_requests` (`id`, `first_name`, `last_name`, `grade`
 
 $rs = mysqli_query($con, $sql);
 
-if($rs) {
-	echo "contact requests recorded";
+if ($rs) {
+    echo "contact requests recorded";
 }
 
 ?>
