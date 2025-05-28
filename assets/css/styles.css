@@ -199,7 +199,7 @@
 }
 
 .slider {
-  appearance: none;
+  -webkit-appearance: none;
   width: 100%;
   height: 25px;
   background: #d3d3d3;
@@ -214,7 +214,7 @@
 }
 
 .slider::slider-thumb {
-  appearance: none;
+  -webkit-appearance: none;
   appearance: none;
   width: 25px;
   height: 25px;
