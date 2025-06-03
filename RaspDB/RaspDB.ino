@@ -8,14 +8,14 @@
 #define NUM_OF_PIXELS 10
 Adafruit_NeoPixel pixel(NUM_OF_PIXELS, PIXEL_PIN, NEO_GRB + NEO_KHZ800);
 
-// Convert the SQLHost string to an IPAddress object
+// convert the SQLHost string to an IPAddress object
 IPAddress server_addr;
 
 WiFiClient client;
 MySQL_Connection conn(&client);
 MySQL_Cursor* cursor;
 
-// Mutable copies of credentials
+// mutable copies of credentials
 char user[20];
 char password[20];
 char database[30];
@@ -41,7 +41,7 @@ void setup() {
     while (true) delay(1000); // Halt if IP invalid
   }
 
-  // Connect to WiFi
+  // connects to wifi
   WiFi.begin(wifiSSID, wifiPSK);
   Serial.print("Connecting to WiFi");
   while (WiFi.status() != WL_CONNECTED) {
@@ -50,7 +50,7 @@ void setup() {
   }
   Serial.println("\nWiFi connected");
 
-  // Connect to MySQL
+  // connects to MySQL
   Serial.println("Connecting to MySQL...");
   if (conn.connect(server_addr, SQLPort, user, password, database)) {
     Serial.println("MySQL Connected.");
