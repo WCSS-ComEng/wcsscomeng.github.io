@@ -18,29 +18,37 @@
             <span class="bar"></span>
         </div>
         <div class="navbar__menu">
-            <a href="/" class="navbar__link">Home</a>
-            <a href="/contact.html" class="navbar__link">Contact</a>
-            <a href="/admin.html" class="navbar__link">Admin Login</a>
-            <a href="/courseInfo.html" class="navbar__link">Course Information</a>
-
-
+            <a href="index.html" class="navbar__link">Home</a>
+            <a href="contact.html" class="navbar__link">Contact</a>
+            <a href="admin.html" class="navbar__link">Admin Login</a>
+            <a href="courseInfo.html" class="navbar__link">Course Information</a>
         </div>
     </nav>
     <!-- Hero Section -->
     <div class="hero">
-        <div class="hero__content">
-            <div class="slidecontainer">
-                <input type="range" min="1" max="50" value="50%">
-                <input type="range" min="1" max="50" value="50%">
-                <input type="range" min="1" max="50" value="50%">
+        <div class="slider-box">
+            <div class="slider-container">
+                <div class="slider-group">
+                    <label for="slider1"></label>
+                    <input type="range" id="slider1" min="0" max="100" value="50">
+                </div>
+                <div class="slider-group">
+                    <label for="slider2"></label>
+                    <input type="range" id="slider2" min="0" max="100" value="60">
+                </div>
+                <div class="slider-group">
+                    <label for="slider3"></label>
+                    <input type="range" id="slider3" min="0" max="100" value="70">
+                </div>
             </div>
-            <form action="/action_page.php">
-                <label for="favcolor"></label>
-                <input type="color" id="favcolor" name="favcolor" value="#ff0000">
-                <p><input type="submit" value="Submit"></p>
-            </form>
         </div>
-        <script src="assets/js/app.js"></script>
+        <form action="/action_page.php">
+            <label for="favcolor"></label>
+            <input type="color" id="favcolor" name="favcolor" value="#ff0000">
+            <p><input type="submit" value="Submit"></p>
+        </form>
+    </div>
+    <script src="assets/js/app.js"></script>
 
 
 

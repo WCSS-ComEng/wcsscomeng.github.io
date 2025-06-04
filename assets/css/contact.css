@@ -12,7 +12,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-
 .navbar {
     background: var(--black);
     height: 60px;
@@ -42,6 +41,8 @@
 .navbar__link:hover {
     color: var(--red);
 }
+
+
 
 
 @media screen and (max-width: 768px) {
@@ -105,10 +106,80 @@
     }
 }
 
-.name__container {
+.form-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: var(--black);
+    height: calc(100vh - 60px);
+    padding: 20px;
+    background: url('images/board4.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.contact__container {
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    background-color:var(--white);
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.grade-group {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+
+.grade-group label {
+    display: inline-block;
+    align-items: center;
+    cursor: pointer;
+}
+
+.grade-group input[type="radio"] {
+    margin-right: 6px;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: #0056b3;
 }

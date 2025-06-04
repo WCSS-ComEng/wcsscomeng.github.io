@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mr Murrays Website</title>
-    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/contact.css">
 </head>
+
 <body>
     <!-- Navbar Section -->
     <nav class="navbar">
@@ -16,82 +18,78 @@
             <span class="bar"></span>
         </div>
         <div class="navbar__menu">
-            <a href="/" class="navbar__link">Home</a>
-            <a href="/contact.html" class="navbar__link">Contact</a>
-            <a href="/admin.html" class="navbar__link">Admin Login</a>
-            <a href="/courseInfo.html" class="navbar__link">Course Information</a>
+            <a href="index.html" class="navbar__link">Home</a>
+            <a href="contact.html" class="navbar__link">Contact</a>
+            <a href="admin.html" class="navbar__link">Admin Login</a>
+            <a href="courseInfo.html" class="navbar__link">Course Information</a>
 
 
         </div>
-     </nav>
+    </nav>
 
-     <!-- Contact Form -->
+    <!-- Contact Form -->
+    <main class="form-wrapper">
+        <div class="contact__container">
+            <form name="contactForm" action="assets/php/contact.php" method="POST">
 
-     <form name="contactForm" action="/assets/php/contact.php" method="POST">
-        <div>
-        <label for="fname">first name:</label>
-        <input type="text" id="fname" name="fname" placeholder="Mr" required><br>
+                <div>
+                    <label for="fname">First name:</label>
+                    <input type="text" id="fname" name="fname" placeholder="John" required><br>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="lname">Last name:</label>
+                    <input type="text" id="lname" name="lname" placeholder="Doe" required><br>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="email">School email:</label>
+                    <input type="email" id="email" name="email" placeholder="johndoe1@ocdsb.ca">
+                </div>
+
+                <br>
+
+                <div class="grade-group">
+                    <label for="title">Grade:</label>
+                    <label><input type="radio" name="grade" value="9"> 9</label>
+                    <label><input type="radio" name="grade" value="10"> 10</label>
+                    <label><input type="radio" name="grade" value="11"> 11</label>
+                    <label><input type="radio" name="grade" value="12"> 12</label>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="msg">Message:</label>
+                   <textarea id="message" name="message" rows="5" cols="40" style="resize: none;"></textarea>
+                </div>
+
+                <br>
+
+                <div>
+                    <input type="reset">
+                </div>
+
+                <br>
+
+                <div>
+                    <input type="submit">
+                </div>
+            </form>
         </div>
-
-        <br>
-
-        <div>
-        <label for="lname">Last name:</label>
-        <input type="text" id="lname" name="lname" placeholder="Murray" required><br>
-        </div>
-
-        <br> 
-
-        <div>
-        <label for="email">School email:</label>
-        <input type="email" id="email" name="email" placeholder="abc1@ocdsb.ca">
-        </div>
-
-        <br>
-
-        <div>
-            <label for="title">Grade:</label>
-
-
-            <label>9</label>
-            <input type="radio" id="9" name="grade" value="9">
-
-            <label>10</label>
-            <input type="radio" id="10" name="grade" value="10">
-
-            <label>11</label>
-            <input type="radio" id="11" name="grade" value="11">
-
-            <label>12</label>
-            <input type="radio" id="12" name="grade" value="12">
-        </div>
-
-        <br>
-
-        <div>
-            <label for="msg">Message:</label>
-            <textarea id="msg" name="msg" rows="4" cols="50"></textarea>
-        </div>
-
-        <br>
-
-        <div>
-            <input type="reset">
-        </div>
-
-        <br>
-
-        <div>
-            <input type="submit">
-        </div>
-     </form>
+    </main>
 
 
 
 
-     <script src="assets/js/app.js"></script>
+    <script src="assets/js/app.js"></script>
 
 
-   
+
 </body>
+
 </html>
