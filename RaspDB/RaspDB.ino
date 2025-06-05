@@ -20,17 +20,16 @@ void setup() {
   Serial.begin(115200);
   pixel.begin();
   pixel.setBrightness(50);
-  pixel.show();  // Initialize all pixels off
+  pixel.show();  // initialize all pixels as off
 
+// connects to wifi
   WiFi.begin(ssid, password);
-
   Serial.print("Connecting to WiFi");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-
-  Serial.println(" Connected!");
+  Serial.println("\nConnected!");
 }
 
 void loop() {
