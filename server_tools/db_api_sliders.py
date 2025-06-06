@@ -6,7 +6,7 @@ import os
 
 # ensures safety of database credentials
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(dotenv_path="C:/Users/gsorg1/Documents/GitHub/wcsscomeng.github.io/server_tools/creds.env")
 
 app = Flask(__name__)
 CORS(app)
