@@ -2,6 +2,11 @@ from flask import Flask, jsonify, request
 import mysql.connector
 from mysql.connector import Error
 from flask_cors import CORS
+import os
+
+# ensures safety of database credentials
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
@@ -10,11 +15,12 @@ CORS(app)
 # browser http://10.191.28.229:5000/slider-values
 
 # database connection config
+
 DB_CONFIG = {
-    "host": "localhost",
-    "user": "API_CONNECTOR",
-    "password": "endpointserverworkbench",
-    "database": "comeng_server_database"
+    "host": os.getenv("DB_HOST"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASS"),
+    "database": os.getenv("DB_NAME")
 }
 
 #####################
@@ -46,6 +52,8 @@ def get_slider_values():
     except Error as e:
         print(f"MySQL error: {e}")
         return jsonify({"error": "Database error"}), 500
+    
+    # closes connections, otherwise prevents data leaks
     finally:
         if 'cursor' in locals():
             cursor.close()
