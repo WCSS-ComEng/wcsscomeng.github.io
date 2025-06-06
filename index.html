@@ -24,9 +24,10 @@
             <a href="courseInfo.html" class="navbar__link">Course Information</a>
         </div>
     </nav>
+
     <!-- Hero Section -->
     <div class="slider-form">
-        <form action="submit_to_pico.php" method="POST">
+        <form id="sliderForm">
             <label for="slider1">Slider 1:</label>
             <input type="range" id="slider1" name="slider1" min="0" max="100" value="50">
             <br>
@@ -38,9 +39,39 @@
             <br>
             <input type="submit" value="Submit">
         </form>
+        <p id="statusMessage"></p>
     </div>
 
+    <!-- Database Access -->
+    <script>
+        document.getElementById("sliderForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // prevent normal form submit
 
+            const slider1 = document.getElementById("slider1").value;
+            const slider2 = document.getElementById("slider2").value;
+            const slider3 = document.getElementById("slider3").value;
+
+            fetch("http://10.191.28.229:5000/slider-values", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    slider1: slider1,
+                    slider2: slider2,
+                    slider3: slider3
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("statusMessage").textContent = data.message || "submitted successfully!";
+            })
+            .catch(error => {
+                console.error("error submitting data:", error);
+                document.getElementById("statusMessage").textContent = "submission failed.";
+            });
+        });
+    </script>
 </body>
 
 </html>

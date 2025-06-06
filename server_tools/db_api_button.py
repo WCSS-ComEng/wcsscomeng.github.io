@@ -1,8 +1,10 @@
 from flask import Flask, jsonify
 import mysql.connector
 from mysql.connector import Error
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # useful code in POWERSHELL: py C:\Users\gsorg1\Documents\GitHub\wcsscomeng.github.io\server_tools\db_api_button.py
 # browser http://10.191.28.229:5000/button-state
