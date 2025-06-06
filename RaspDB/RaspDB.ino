@@ -24,12 +24,12 @@ void setup() {
 
 // connects to wifi
   WiFi.begin(ssid, password);
-  Serial.print("Connecting to WiFi");
+  Serial.print("connecting to WiFi");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("\nConnected!");
+  Serial.println("\nconnected!");
 }
 
 void loop() {
@@ -53,15 +53,15 @@ void loop() {
         pixel.clear();
         for (int i = 0; i < NUM_OF_PIXELS; i++) {
           if (state == 1) {
-            pixel.setPixelColor(i, 255, 255, 255); // White (LED ON)
+            pixel.setPixelColor(i, 255, 255, 255); // on
           } else {
-            pixel.setPixelColor(i, 0, 0, 0);       // Off
+            pixel.setPixelColor(i, 0, 0, 0);       // off
           }
         }
         pixel.show();
 
       } else {
-        Serial.println("Failed to parse JSON.");
+        Serial.println("failed to parse JSON.");
       }
 
     } else {

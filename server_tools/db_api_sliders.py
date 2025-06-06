@@ -12,8 +12,8 @@ CORS(app)
 # database connection config
 DB_CONFIG = {
     "host": "localhost",
-    "user": "root",
-    "password": "dolphindatabaseworkbench",
+    "user": "API_CONNECTOR",
+    "password": "endpointserverworkbench",
     "database": "comeng_server_database"
 }
 
