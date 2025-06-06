@@ -2,6 +2,11 @@ from flask import Flask, jsonify
 import mysql.connector
 from mysql.connector import Error
 from flask_cors import CORS
+import os
+
+# ensures safety of database credentials
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
@@ -11,10 +16,10 @@ CORS(app)
 
 # database connection config
 DB_CONFIG = {
-    "host": "localhost",
-    "user": "API_CONNECTOR",
-    "password": "endpointserverworkbench",
-    "database": "comeng_server_database"
+    "host": os.getenv("DB_HOST"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASS"),
+    "database": os.getenv("DB_NAME")
 }
 
 @app.route("/button-state", methods=["GET"])
