@@ -22,8 +22,6 @@
             <a href="contact.html" class="navbar__link">Contact</a>
             <a href="admin.html" class="navbar__link">Admin Login</a>
             <a href="courseInfo.html" class="navbar__link">Course Information</a>
-
-
         </div>
     </nav>
 
@@ -55,19 +53,25 @@
                 <input type="submit">
             </form>
             <p id="statusMessage"></p>
-
         </div>
     </main>
-    
+
     <script>
         document.getElementById("contactForm").addEventListener("submit", function (event) {
             event.preventDefault(); // Prevent normal form submit
 
-            const formData = new FormData(event.target);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
+            const data = {
+                first_name: document.getElementById("fname").value,
+                last_name: document.getElementById("lname").value,
+                grade: document.querySelector('input[name="grade"]:checked')?.value,
+                email: document.getElementById("email").value,
+                message: document.getElementById("message").value
+            };
+
+            if (!data.first_name || !data.last_name || !data.grade || !data.email || !data.message) {
+                document.getElementById("statusMessage").textContent = "Please fill out all fields.";
+                return;
+            }
 
             fetch("http://10.191.28.229:5000/contact-requests", {
                 method: "POST",
