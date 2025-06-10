@@ -86,7 +86,40 @@
 
 
 
-    <script src="assets/js/app.js"></script>
+     <!-- Database Access -->
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // prevent normal form submit
+
+            const fname = document.getElementById("first_name").value;
+            const lname = document.getElementById("last_name").value;
+            const grade = document.getElementById("grade").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+
+            fetch("http://10.191.28.229:5000/contact-requests", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    fname: fname,
+                    lname: lname,
+                    grade: grade,
+                    email: email,
+                    message: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("statusMessage").textContent = data.message || "submitted successfully!";
+            })
+            .catch(error => {
+                console.error("error submitting data:", error);
+                document.getElementById("statusMessage").textContent = "submission failed.";
+            });
+        });
+    </script>
 
 
 
