@@ -31,61 +31,95 @@
     <main class="form-wrapper">
         <div class="contact__container">
             <form id="contactForm">
-                <label for="fname">First name:</label>
-                <input type="text" id="fname" name="first_name" placeholder="John" required><br>
 
-                <label for="lname">Last name:</label>
-                <input type="text" id="lname" name="last_name" placeholder="Doe" required><br>
+                <div>
+                    <label for="fname">First name:</label>
+                    <input type="text" id="fname" name="fname" placeholder="John" required><br>
+                </div>
 
-                <label for="email">School email:</label>
-                <input type="email" id="email" name="email" placeholder="johndoe1@ocdsb.ca"><br>
+                <br>
+
+                <div>
+                    <label for="lname">Last name:</label>
+                    <input type="text" id="lname" name="lname" placeholder="Doe" required><br>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="email">School email:</label>
+                    <input type="email" id="email" name="email" placeholder="johndoe1@ocdsb.ca">
+                </div>
+
+                <br>
 
                 <div class="grade-group">
-                    <label for="grade">Grade:</label>
+                    <label for="title">Grade:</label>
                     <label><input type="radio" name="grade" value="9"> 9</label>
                     <label><input type="radio" name="grade" value="10"> 10</label>
                     <label><input type="radio" name="grade" value="11"> 11</label>
                     <label><input type="radio" name="grade" value="12"> 12</label>
-                </div><br>
+                </div>
 
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="5" cols="40" style="resize: none;"></textarea><br>
+                <br>
 
-                <input type="reset">
-                <input type="submit">
+                <div>
+                    <label for="msg">Message:</label>
+                   <textarea id="message" name="message" rows="5" cols="40" style="resize: none;"></textarea>
+                </div>
+
+                <br>
+
+                <div>
+                    <input type="reset">
+                </div>
+
+                <br>
+
+                <div>
+                    <input type="submit">
+                </div>
             </form>
-            <p id="statusMessage"></p>
-
         </div>
     </main>
-    
+
+     <!-- Database Access -->
     <script>
         document.getElementById("contactForm").addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent normal form submit
+            event.preventDefault(); // prevent normal form submit
 
-            const formData = new FormData(event.target);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
+            const fname = document.getElementById("first_name").value;
+            const lname = document.getElementById("last_name").value;
+            const grade = document.getElementById("grade").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
 
             fetch("http://10.191.28.229:5000/contact-requests", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(data)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("statusMessage").textContent = data.message || "Submitted successfully!";
+                body: JSON.stringify({
+                    fname: first_name,
+                    lname: last_name,
+                    grade: grade,
+                    email: email,
+                    message: message
                 })
-                .catch(error => {
-                    console.error("Error submitting data:", error);
-                    document.getElementById("statusMessage").textContent = "Submission failed.";
-                });
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("statusMessage").textContent = data.message || "submitted successfully!";
+            })
+            .catch(error => {
+                console.error("error submitting data:", error);
+                document.getElementById("statusMessage").textContent = "submission failed.";
+            });
         });
     </script>
+
+
+
 </body>
 
 </html>
