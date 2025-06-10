@@ -66,30 +66,26 @@ def get_slider_values():
 ######################
 
 @app.route("/contact-requests", methods=["POST"])
-def post_slider_values():
+def post_contact_request():
     try:
         data = request.get_json()
+        first_name = data.get("first_name")
+        last_name = data.get("last_name")
+        grade = data.get("grade")
+        email = data.get("email")
+        message = data.get("message")
 
-        first_name = data.get("first_name", "")
-        last_name = data.get("last_name", "")
-        grade = int(data.get("grade", 0))
-        email = data.get("email", "")
-        message = data.get("message", "")
-
-
+        # Insert data into MySQL database
         connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
-
         query = """
-            INSERT INTO slider_values (first_name, last_name, grade, email, message, last_modified)
-            VALUES (%s, %s, %s, %s, %s, NOW())
+            INSERT INTO contact_requests (first_name, last_name, grade, email, message)
+            VALUES (%s, %s, %s, %s, %s)
         """
-
         cursor.execute(query, (first_name, last_name, grade, email, message))
         connection.commit()
 
-        return jsonify({"message": "Contact Requests saved successfully"}), 201
-
+        return jsonify({"message": "Contact request saved successfully!"}), 201
     except Error as e:
         print(f"MySQL error: {e}")
         return jsonify({"error": "Database error"}), 500
