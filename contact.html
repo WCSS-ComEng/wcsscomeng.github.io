@@ -22,8 +22,6 @@
             <a href="contact.html" class="navbar__link">Contact</a>
             <a href="admin.html" class="navbar__link">Admin Login</a>
             <a href="courseInfo.html" class="navbar__link">Course Information</a>
-
-
         </div>
     </nav>
 
@@ -80,19 +78,20 @@
                     <input type="submit">
                 </div>
             </form>
+            <p id="statusMessage"></p>
+
         </div>
     </main>
-
-     <!-- Database Access -->
+    
     <script>
         document.getElementById("contactForm").addEventListener("submit", function (event) {
             event.preventDefault(); // prevent normal form submit
 
-            const fname = document.getElementById("first_name").value;
-            const lname = document.getElementById("last_name").value;
-            const grade = document.getElementById("grade").value;
-            const email = document.getElementById("email").value;
-            const message = document.getElementById("message").value;
+            const formData = new FormData(event.target);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
 
             fetch("http://10.191.28.229:5000/contact-requests", {
                 method: "POST",
