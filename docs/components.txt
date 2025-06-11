@@ -1,2 +1,0 @@
-- 1x Raspberry Pi Pico W RP2040
--
