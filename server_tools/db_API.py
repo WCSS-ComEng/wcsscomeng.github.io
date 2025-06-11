@@ -53,14 +53,19 @@ def get_slider_values():
         connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
         cursor.execute("""
-            SELECT slider1, slider2, slider3
-            FROM slider_values
+            SELECT slider1, slider2, colour, running
+            FROM neopixel_info
             ORDER BY last_modified DESC
             LIMIT 1
         """)
         result = cursor.fetchone()
         if result:
-            return jsonify({"slider1": result[0], "slider2": result[1], "slider3": result[2]})
+            return jsonify({
+                "slider1": result[0],
+                "slider2": result[1],
+                "colour": result[2],
+                "running": bool(result[3])  # convert int to bool
+            })
         else:
             return jsonify({"error": "No slider data found"}), 404
     except Error as e:
@@ -70,23 +75,27 @@ def get_slider_values():
         if 'cursor' in locals(): cursor.close()
         if 'connection' in locals() and connection.is_connected(): connection.close()
 
+
 @app.route("/slider-values", methods=["POST"])
 def post_slider_values():
     try:
         data = request.get_json()
+
         slider1 = int(data.get("slider1", 0))
         slider2 = int(data.get("slider2", 0))
-        slider3 = int(data.get("slider3", 0))
+        colour = data.get("colour", "#000000")  # default black
+        running = 1 if data.get("running") else 0  # convert boolean to int
 
         connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
         cursor.execute("""
-            INSERT INTO slider_values (slider1, slider2, slider3, last_modified)
-            VALUES (%s, %s, %s, NOW())
-        """, (slider1, slider2, slider3))
+            INSERT INTO neopixel_info (slider1, slider2, colour, running, last_modified)
+            VALUES (%s, %s, %s, %s, NOW())
+        """, (slider1, slider2, colour, running))
         connection.commit()
 
         return jsonify({"message": "Slider values saved successfully"}), 201
+
     except Error as e:
         print(f"MySQL error: {e}")
         return jsonify({"error": "Database error"}), 500
@@ -96,6 +105,7 @@ def post_slider_values():
     finally:
         if 'cursor' in locals(): cursor.close()
         if 'connection' in locals() and connection.is_connected(): connection.close()
+
 
 # ------------------------
 # Routes: /contact-requests (GET & POST)
