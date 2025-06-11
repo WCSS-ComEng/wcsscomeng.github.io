@@ -1,0 +1,27 @@
++=============================================+
+|                                             |
+|               API INFORMATION               |
+|                                             |
++=============================================+
+WRITTEN BY: GRIFFIN SORGARD
+DATE: 2025/06/11
+
+USED LIBRARIES
+-- Flask
+-- Flask_CORS (Cross Origin Resource Sharing)
+-- OS
+-- MySQL_Connector
+-- dotenv
++=============================================+
+|               IMPORTANT NOTES               |
++=============================================+
+
+-- API needs credentials to work, which are saved in an environment (.env) file for security purposes.
+    -- it is run through a user called API_CONNECTOR, which has READ and ADD permissions ONLY.
+
+-- the API uses Python Flask to run, and it serves as an intermediary between the website and the database.
+-- due to some issues with VScode, I had to run the API through POWERSHELL, using the commnad: py C:\path\to\server_tools\db_API.py
+    -- this may not be needed however, but it works.
+
+-- using MySQL_Connector, the API communicates with the SQL database directly, running SQL commands.
+    -- this means if you can program in SQL, you can edit the API easily.

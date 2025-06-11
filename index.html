@@ -72,14 +72,14 @@
                     slider3: slider3
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("statusMessage").textContent = data.message || "submitted successfully!";
-            })
-            .catch(error => {
-                console.error("error submitting data:", error);
-                document.getElementById("statusMessage").textContent = "submission failed.";
-            });
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("statusMessage").textContent = data.message || "submitted successfully!";
+                })
+                .catch(error => {
+                    console.error("error submitting data:", error);
+                    document.getElementById("statusMessage").textContent = "submission failed.";
+                });
         });
     </script>
 </body>

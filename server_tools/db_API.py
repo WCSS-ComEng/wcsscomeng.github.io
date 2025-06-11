@@ -5,15 +5,17 @@ from mysql.connector import Error
 import os
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv(dotenv_path="C:/Users/gsorg1/Documents/GitHub/wcsscomeng.github.io/server_tools/creds.env")
+# load environment variables
+load_dotenv(dotenv_path="D:/arduinatedKohakuMain/wcsscomeng.github.io/server_tools/creds.env")
 
-# useful code in POWERSHELL: py C:\Users\gsorg1\Documents\GitHub\wcsscomeng.github.io\server_tools\db_API.py
+# useful code in POWERSHELL: py D:\arduinatedKohakuMain\wcsscomeng.github.io\server_tools\db_API.py
 # browser http://10.191.28.229:5000/
 
-# Flask app setup
+# flask app setup
 app = Flask(__name__)
-CORS(app)
+
+# accept requests from listed addresses
+CORS(app, origins=["http://localhost:3000", "http://10.191.28.229:5000"])
 
 # Database configuration
 DB_CONFIG = {
@@ -119,10 +121,10 @@ def get_contact_requests():
                 "message": result[4]
             })
         else:
-            return jsonify({"error": "No contact request found"}), 404
+            return jsonify({"error": "no contact request found"}), 404
     except Error as e:
         print(f"MySQL error: {e}")
-        return jsonify({"error": "Database error"}), 500
+        return jsonify({"error": "database error"}), 500
     finally:
         if 'cursor' in locals(): cursor.close()
         if 'connection' in locals() and connection.is_connected(): connection.close()
@@ -130,7 +132,8 @@ def get_contact_requests():
 @app.route("/contact-requests", methods=["POST"])
 def post_contact_request():
     try:
-        data = request.get_json()
+        data = request.get_json(force=True)
+        
         connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
         cursor.execute("""

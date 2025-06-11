@@ -28,7 +28,7 @@
     <!-- Contact Form -->
     <main class="form-wrapper">
         <div class="contact__container">
-            <form id="contactForm">
+            <form id="contactForm" method="POST" action="/contact-requests">
                 <label for="fname">First name:</label>
                 <input type="text" id="fname" name="first_name" placeholder="John" required><br>
 
@@ -60,25 +60,25 @@
         document.getElementById("contactForm").addEventListener("submit", function (event) {
             event.preventDefault(); // Prevent normal form submit
 
-            const data = {
-                first_name: document.getElementById("fname").value,
-                last_name: document.getElementById("lname").value,
-                grade: document.querySelector('input[name="grade"]:checked')?.value,
-                email: document.getElementById("email").value,
-                message: document.getElementById("message").value
-            };
-
-            if (!data.first_name || !data.last_name || !data.grade || !data.email || !data.message) {
-                document.getElementById("statusMessage").textContent = "Please fill out all fields.";
-                return;
-            }
+            const first_name = document.getElementById("fname").value;
+            const last_name = document.getElementById("lname").value;
+            const grade = document.querySelector('input[name="grade"]:checked')?.value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
 
             fetch("http://10.191.28.229:5000/contact-requests", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify({
+                    first_name: first_name,
+                    last_name: last_name,
+                    grade: grade,
+                    email: email,
+                    message: message
+
+                })
             })
                 .then(response => response.json())
                 .then(data => {
