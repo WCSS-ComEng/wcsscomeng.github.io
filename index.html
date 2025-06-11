@@ -26,29 +26,42 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="slider-form">
-        <form id="sliderForm">
-            <label for="slider1">Slider 1:</label>
-            <input type="range" id="slider1" name="slider1" min="0" max="100" value="50">
-            <br>
-            <label for="slider2">Slider 2:</label>
-            <input type="range" id="slider2" name="slider2" min="0" max="100" value="60">
-            <br>
-            <label for="slider3">Slider 3:</label>
-            <input type="range" id="slider3" name="slider3" min="0" max="100" value="70">
-            <br>
-            <input type="submit" value="Submit">
-        </form>
-        <p id="statusMessage"></p>
-    </div>
+    <main class="main-wrapper">
+        <div class="slider-box">
+            <div class="slider-container">
+                <form id="sliderForm">
+                    <label for="slider1">Slider 1:</label>
+                    <input type="range" id="slider1" name="slider1" min="0" max="100" value="50">
+                    <br>
+                    <label for="slider2">Slider 2:</label>
+                    <input type="range" id="slider2" name="slider2" min="0" max="100" value="60">
+                    <br>
+                    <label for="colorPicker">Choose a color:</label>
+                    <input type="color" id="colorPicker" name="colorPicker" value="#ff0000">
 
-    <div class="color-picker">
-        <form id="colorForm">
-            <label for="colorInput">Choose a color:</label>
-            <input type="color" id="colorInput" name="colorInput" value="#ff0000">
-            <input type="submit" value="Submit Color">
-        </form>
-    </div>
+                    <div class="running-toggle">
+                        <label class="switch">
+                            <br>
+                            <input type="checkbox" id="runningToggle">
+                            <span class="slider"></span>
+                        </label>
+                        <label for="runningToggle">Running Toggle</label>
+                    </div>
+
+
+
+
+                    <br>
+                    <input type="submit" value="Submit">
+
+
+
+
+                </form>
+            </div>
+            <p id="statusMessage"></p>
+        </div>
+    </main>
 
     <!-- Database Access -->
     <script>
@@ -57,7 +70,8 @@
 
             const slider1 = document.getElementById("slider1").value;
             const slider2 = document.getElementById("slider2").value;
-            const slider3 = document.getElementById("slider3").value;
+            const color = document.getElementById("colorPicker").value;
+            const runningToggle = document.getElementById("runningToggle").checked;
 
             fetch("http://10.191.28.229:5000/slider-values", {
                 method: "POST",
@@ -67,17 +81,19 @@
                 body: JSON.stringify({
                     slider1: slider1,
                     slider2: slider2,
-                    slider3: slider3
+                    color: color,
+                    running: runningToggle
+
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("statusMessage").textContent = data.message || "submitted successfully!";
-            })
-            .catch(error => {
-                console.error("error submitting data:", error);
-                document.getElementById("statusMessage").textContent = "submission failed.";
-            });
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("statusMessage").textContent = data.message || "submitted successfully!";
+                })
+                .catch(error => {
+                    console.error("error submitting data:", error);
+                    document.getElementById("statusMessage").textContent = "submission failed.";
+                });
         });
     </script>
 </body>
