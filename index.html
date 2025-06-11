@@ -48,7 +48,6 @@
             <input type="color" id="colorInput" name="colorInput" value="#ff0000">
             <input type="submit" value="Submit Color">
         </form>
-        <p id="colorStatusMessage"></p>
     </div>
 
     <!-- Database Access -->
@@ -59,7 +58,6 @@
             const slider1 = document.getElementById("slider1").value;
             const slider2 = document.getElementById("slider2").value;
             const slider3 = document.getElementById("slider3").value;
-            const colorInput = document.getElementById("colorInput").value;
 
             fetch("http://10.191.28.229:5000/slider-values", {
                 method: "POST",
