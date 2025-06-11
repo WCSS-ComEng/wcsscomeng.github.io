@@ -15,7 +15,7 @@ load_dotenv(dotenv_path="D:/arduinatedKohakuMain/wcsscomeng.github.io/server_too
 app = Flask(__name__)
 
 # accept requests from listed addresses
-CORS(app, origins=["http://localhost:3000", "http://10.191.28.229:5000"])
+CORS(app)
 
 # Database configuration
 DB_CONFIG = {
@@ -147,8 +147,8 @@ def post_contact_request():
         connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
         cursor.execute("""
-            INSERT INTO contact_requests (first_name, last_name, grade, email, message)
-            VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO contact_requests (first_name, last_name, grade, email, message, last_modified)
+            VALUES (%s, %s, %s, %s, %s, NOW())
         """, (
             data.get("first_name"),
             data.get("last_name"),
