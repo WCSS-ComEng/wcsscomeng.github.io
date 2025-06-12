@@ -73,7 +73,7 @@
             const color = document.getElementById("colorPicker").value;
             const runningToggle = document.getElementById("runningToggle").checked;
 
-            fetch("http://10.191.28.229:5000/slider-values", {
+            fetch("http://10.191.28.229:5000/neopixel-control", { //changed to reflect API naming
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
