@@ -30,10 +30,10 @@
         <div class="slider-box">
             <div class="slider-container">
                 <form id="sliderForm">
-                    <label for="slider1">Slider 1:</label>
+                    <label for="slider1">Speed:</label>
                     <input type="range" id="slider1" name="slider1" min="0" max="100" value="50">
                     <br>
-                    <label for="slider2">Slider 2:</label>
+                    <label for="slider2">Spacing:</label>
                     <input type="range" id="slider2" name="slider2" min="0" max="100" value="60">
                     <br>
                     <label for="colorPicker">Choose a color:</label>
@@ -73,7 +73,7 @@
             const color = document.getElementById("colorPicker").value;
             const runningToggle = document.getElementById("runningToggle").checked;
 
-            fetch("http://10.191.28.229:5000/neopixel-control", {
+            fetch("http://10.191.28.229:5000/neopixel-control", { //changed to reflect API naming
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

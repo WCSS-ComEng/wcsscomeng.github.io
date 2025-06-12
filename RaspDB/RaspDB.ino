@@ -46,10 +46,10 @@ void loop() {
           String colour = doc["colour"];
           bool running = doc["running"];
 
-          Serial.printf("Slider1: %d, Slider2: %d, Colour: %s, Running: %d\n", slider1, slider2, colour.c_str(), running);
+          Serial.printf("speed: %d, spacing: %d, colour: %s, running: %d\n", slider1, slider2, colour.c_str(), running);
 
           // convert hex colour to RGB
-          long col = strtol(colour.c_str() + 1, NULL, 16); // Skip the '#' character
+          long col = strtol(colour.c_str() + 1, NULL, 16); // skip the '#' character
           byte r = (col >> 16) & 0xFF;
           byte g = (col >> 8) & 0xFF;
           byte b = col & 0xFF;
