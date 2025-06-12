@@ -36,45 +36,25 @@ void loop() {
     if (httpResponseCode > 0) {
       WiFiClient* stream = http.getStreamPtr();
       size_t size = http.getSize();
-      String payload = "";
+      StaticJsonDocument<512> doc;
 
       if (size > 0) {
-        byte buffer[128];
-        while (http.connected() && (size > 0 || size == -1)) {
-          if (stream->available()) {
-            int len = stream->readBytes(buffer, sizeof(buffer));
-            payload += String((char*)buffer);
-            if (size > 0) {
-              size -= len;
-            }
-          }
-          delay(1);
-        }
-      }
-
-      Serial.printf("HTTP GET Response Code: %d\n", httpResponseCode);
-      Serial.printf("Payload Length: %d\n", payload.length());
-      Serial.println("Payload:");
-      Serial.println(payload);
-
-      if (payload.length() > 0) {
-        StaticJsonDocument<512> doc;
-        DeserializationError error = deserializeJson(doc, payload);
+        DeserializationError error = deserializeJson(doc, *stream);
         if (!error) {
           int slider1 = doc["slider1"];
           int slider2 = doc["slider2"];
           String colour = doc["colour"];
           bool running = doc["running"];
 
-          Serial.printf("Slider1: %d, Slider2: %d, Colour: %s, Running: %d\n", slider1, slider2, colour.c_str(), running);
+          Serial.printf("speed: %d, spacing: %d, colour: %s, running: %d\n", slider1, slider2, colour.c_str(), running);
 
-          // Convert hex colour to RGB
-          long col = strtol(colour.c_str() + 1, NULL, 16); // Skip the '#' character
+          // convert hex colour to RGB
+          long col = strtol(colour.c_str() + 1, NULL, 16); // skip the '#' character
           byte r = (col >> 16) & 0xFF;
           byte g = (col >> 8) & 0xFF;
           byte b = col & 0xFF;
 
-          // Set NeoPixels based on running state
+          // set NeoPixels based on running state
           pixel.clear();
           if (running) {
             for (int i = 0; i < NUM_OF_PIXELS; i++) {
@@ -87,11 +67,11 @@ void loop() {
           }
           pixel.show();
         } else {
-          Serial.print("Failed to parse JSON: ");
+          Serial.print("failed to parse JSON: ");
           Serial.println(error.c_str());
         }
       } else {
-        Serial.println("Received empty payload.");
+        Serial.println("received empty payload.");
       }
     } else {
       Serial.printf("HTTP GET failed, error: %s\n", http.errorToString(httpResponseCode).c_str());
@@ -101,5 +81,5 @@ void loop() {
     Serial.println("WiFi disconnected");
   }
 
-  delay(5000);
+  delay(1500);
 }
