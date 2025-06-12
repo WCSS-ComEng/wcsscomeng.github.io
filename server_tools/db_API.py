@@ -45,9 +45,9 @@ def get_button_state():
         if 'connection' in locals() and connection.is_connected(): connection.close()
 
 # ------------------------
-# Routes: /slider-values (GET & POST)
+# Routes: /neopixel-control (GET & POST)
 # ------------------------
-@app.route("/slider-values", methods=["GET"])
+@app.route("/neopixel-control", methods=["GET"])
 def get_slider_values():
     try:
         connection = mysql.connector.connect(**DB_CONFIG)
@@ -76,7 +76,7 @@ def get_slider_values():
         if 'connection' in locals() and connection.is_connected(): connection.close()
 
 
-@app.route("/slider-values", methods=["POST"])
+@app.route("/neopixel-control", methods=["POST"])
 def post_slider_values():
     try:
         data = request.get_json()

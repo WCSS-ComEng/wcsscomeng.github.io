@@ -3,13 +3,9 @@
 #include <ArduinoJson.h>
 #include <Adafruit_NeoPixel.h>
 
-// WiFi credentials
 const char* ssid = "ArduinoPi";
 const char* password = "WCSSroom228";
-
-const char* serverName = "http://10.191.28.229:5000/button-state";
-
-// useful code in POWERSHELL: py C:\Users\gsorg1\Documents\GitHub\wcsscomeng.github.io\server_tools\db_api.py
+const char* serverName = "http://10.191.28.229:5000/neopixel-control";
 
 #define PIXEL_PIN 3
 #define NUM_OF_PIXELS 10
@@ -20,9 +16,8 @@ void setup() {
   Serial.begin(115200);
   pixel.begin();
   pixel.setBrightness(50);
-  pixel.show();  // initialize all pixels as off
+  pixel.show();
 
-// connects to wifi
   WiFi.begin(ssid, password);
   Serial.print("connecting to WiFi");
   while (WiFi.status() != WL_CONNECTED) {
@@ -38,37 +33,70 @@ void loop() {
     http.begin(serverName);
     int httpResponseCode = http.GET();
 
-    if (httpResponseCode == 200) {
-      String payload = http.getString();
-      Serial.printf("Payload length: %d\n", payload.length());
-      Serial.println(payload);
+    if (httpResponseCode > 0) {
+      WiFiClient* stream = http.getStreamPtr();
+      size_t size = http.getSize();
+      String payload = "";
 
-      StaticJsonDocument<200> doc;
-      DeserializationError error = deserializeJson(doc, payload);
-      if (!error) {
-        int state = doc["state"];
-        Serial.printf("Button state: %d\n", state);
-
-        // Set NeoPixels based on state
-        pixel.clear();
-        for (int i = 0; i < NUM_OF_PIXELS; i++) {
-          if (state == 1) {
-            pixel.setPixelColor(i, 255, 255, 255); // on
-          } else {
-            pixel.setPixelColor(i, 0, 0, 0);       // off
+      if (size > 0) {
+        byte buffer[128];
+        while (http.connected() && (size > 0 || size == -1)) {
+          if (stream->available()) {
+            int len = stream->readBytes(buffer, sizeof(buffer));
+            payload += String((char*)buffer);
+            if (size > 0) {
+              size -= len;
+            }
           }
+          delay(1);
         }
-        pixel.show();
-
-      } else {
-        Serial.println("failed to parse JSON.");
       }
 
+      Serial.printf("HTTP GET Response Code: %d\n", httpResponseCode);
+      Serial.printf("Payload Length: %d\n", payload.length());
+      Serial.println("Payload:");
+      Serial.println(payload);
+
+      if (payload.length() > 0) {
+        StaticJsonDocument<512> doc;
+        DeserializationError error = deserializeJson(doc, payload);
+        if (!error) {
+          int slider1 = doc["slider1"];
+          int slider2 = doc["slider2"];
+          String colour = doc["colour"];
+          bool running = doc["running"];
+
+          Serial.printf("Slider1: %d, Slider2: %d, Colour: %s, Running: %d\n", slider1, slider2, colour.c_str(), running);
+
+          // Convert hex colour to RGB
+          long col = strtol(colour.c_str() + 1, NULL, 16); // Skip the '#' character
+          byte r = (col >> 16) & 0xFF;
+          byte g = (col >> 8) & 0xFF;
+          byte b = col & 0xFF;
+
+          // Set NeoPixels based on running state
+          pixel.clear();
+          if (running) {
+            for (int i = 0; i < NUM_OF_PIXELS; i++) {
+              pixel.setPixelColor(i, r, g, b);
+            }
+          } else {
+            for (int i = 0; i < NUM_OF_PIXELS; i++) {
+              pixel.setPixelColor(i, 0, 0, 0); // off
+            }
+          }
+          pixel.show();
+        } else {
+          Serial.print("Failed to parse JSON: ");
+          Serial.println(error.c_str());
+        }
+      } else {
+        Serial.println("Received empty payload.");
+      }
     } else {
-      Serial.printf("HTTP GET failed, code: %d\n", httpResponseCode);
+      Serial.printf("HTTP GET failed, error: %s\n", http.errorToString(httpResponseCode).c_str());
     }
     http.end();
-
   } else {
     Serial.println("WiFi disconnected");
   }
