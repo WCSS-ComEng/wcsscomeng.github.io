@@ -48,13 +48,13 @@ void loop() {
 
           Serial.printf("Slider1: %d, Slider2: %d, Colour: %s, Running: %d\n", slider1, slider2, colour.c_str(), running);
 
-          // Convert hex colour to RGB
+          // convert hex colour to RGB
           long col = strtol(colour.c_str() + 1, NULL, 16); // Skip the '#' character
           byte r = (col >> 16) & 0xFF;
           byte g = (col >> 8) & 0xFF;
           byte b = col & 0xFF;
 
-          // Set NeoPixels based on running state
+          // set NeoPixels based on running state
           pixel.clear();
           if (running) {
             for (int i = 0; i < NUM_OF_PIXELS; i++) {
@@ -67,11 +67,11 @@ void loop() {
           }
           pixel.show();
         } else {
-          Serial.print("Failed to parse JSON: ");
+          Serial.print("failed to parse JSON: ");
           Serial.println(error.c_str());
         }
       } else {
-        Serial.println("Received empty payload.");
+        Serial.println("received empty payload.");
       }
     } else {
       Serial.printf("HTTP GET failed, error: %s\n", http.errorToString(httpResponseCode).c_str());
