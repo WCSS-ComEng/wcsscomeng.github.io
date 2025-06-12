@@ -36,30 +36,10 @@ void loop() {
     if (httpResponseCode > 0) {
       WiFiClient* stream = http.getStreamPtr();
       size_t size = http.getSize();
-      String payload = "";
+      StaticJsonDocument<512> doc;
 
       if (size > 0) {
-        byte buffer[128];
-        while (http.connected() && (size > 0 || size == -1)) {
-          if (stream->available()) {
-            int len = stream->readBytes(buffer, sizeof(buffer));
-            payload += String((char*)buffer);
-            if (size > 0) {
-              size -= len;
-            }
-          }
-          delay(1);
-        }
-      }
-
-      Serial.printf("HTTP GET Response Code: %d\n", httpResponseCode);
-      Serial.printf("Payload Length: %d\n", payload.length());
-      Serial.println("Payload:");
-      Serial.println(payload);
-
-      if (payload.length() > 0) {
-        StaticJsonDocument<512> doc;
-        DeserializationError error = deserializeJson(doc, payload);
+        DeserializationError error = deserializeJson(doc, *stream);
         if (!error) {
           int slider1 = doc["slider1"];
           int slider2 = doc["slider2"];
@@ -101,5 +81,5 @@ void loop() {
     Serial.println("WiFi disconnected");
   }
 
-  delay(5000);
+  delay(1500);
 }
