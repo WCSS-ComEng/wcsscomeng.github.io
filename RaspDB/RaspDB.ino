@@ -37,7 +37,7 @@ void setup() {
 }
 
 void updatePixelsStatic() {
-  // All pixels lit with color, no animation
+  // all pixels lit with color, no animation
   pixel.clear();
   for (int i = 0; i < NUM_OF_PIXELS; i++) {
     pixel.setPixelColor(i, r, g, b);
@@ -46,36 +46,35 @@ void updatePixelsStatic() {
 }
 
 void updatePixelsRunning() {
-  // Clear all pixels first
   pixel.clear();
 
-  // Draw running pixels with spacing
+  // draws running pixels with spacing
   for (int i = 0; i < NUM_OF_PIXELS; i++) {
-    // Light every (spacing + 1) pixel with offset currentPosition
+    // light every (spacing + 1) pixel with offset currentPosition
     if ((i + currentPosition) % (slider2 + 1) == 0) {
       pixel.setPixelColor(i, r, g, b);
     }
   }
   pixel.show();
 
-  // Advance position
+  // advance position
   currentPosition++;
   if (currentPosition > slider2) currentPosition = 0;
 }
 
-unsigned long lastFetch = 0;             // For tracking last data fetch
-const unsigned long fetchInterval = 5000; // Fetch every 5 seconds
+unsigned long lastFetch = 0;              // for tracking last data fetch
+const unsigned long fetchInterval = 5000; // fetch every 5 seconds
 
 void loop() {
   unsigned long now = millis();
 
-  // Fetch new settings every 5 seconds
+  // fetch new settings every 5 seconds, prevents HTTP request overload
   if (WiFi.status() == WL_CONNECTED && (now - lastFetch >= fetchInterval)) {
     lastFetch = now;
 
     HTTPClient http;
     http.begin(serverName);
-    http.setTimeout(1000);  // Set timeout to 1 second
+    http.setTimeout(1000);  // set timeout to 1 second
     int httpResponseCode = http.GET();
 
     if (httpResponseCode > 0) {
@@ -93,13 +92,13 @@ void loop() {
 
           Serial.printf("speed: %d, spacing: %d, colour: %s, running: %d\n", slider1, slider2, colour.c_str(), running);
 
-          // Convert hex colour to RGB
+          // convert hex colour to RGB
           long col = strtol(colour.c_str() + 1, NULL, 16);
           r = (col >> 16) & 0xFF;
           g = (col >> 8) & 0xFF;
           b = col & 0xFF;
 
-          // Update animation interval and spacing
+          // update animation interval and spacing
           interval = map(slider1, 0, 100, 500, 10);
           if (slider2 < 1) slider2 = 1;
 
@@ -117,7 +116,7 @@ void loop() {
     http.end();
   }
 
-  // Update animation
+  // update animation
   if (running) {
     if (now - lastUpdate >= interval) {
       updatePixelsRunning();
@@ -127,5 +126,5 @@ void loop() {
     updatePixelsStatic();
   }
 
-  delay(5);  // Keep this low for smooth animation
+  delay(5);  // ensures smooth animation
 }
