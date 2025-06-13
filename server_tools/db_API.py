@@ -9,15 +9,20 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path="D:/arduinatedKohakuMain/wcsscomeng.github.io/server_tools/creds.env")
 
 # useful code in POWERSHELL: py D:\arduinatedKohakuMain\wcsscomeng.github.io\server_tools\db_API.py
+    # ^^^ FOR ME (GRIFFIN)
+    # for anyone else: py path\to\server_tools\db_API.py
 # browser http://10.191.28.229:5000/
+    # ^^^ FOR MY MACHINE (GRIFFIN)
+    # for anyone else, the IP is displayed after turning on the API
+    # more information in INSTRUCTIONS.txt
 
 # flask app setup
 app = Flask(__name__)
 
-# accept requests from listed addresses
+# accept requests from ALL addresses (not secure, but it is needed for now)
 CORS(app)
 
-# database configuration
+# database configuration (from .env file)
 DB_CONFIG = {
     "host": os.getenv("DB_HOST"),
     "user": os.getenv("DB_USER"),
@@ -28,6 +33,9 @@ DB_CONFIG = {
 # ------------------------
 # route: /button-state
 # ------------------------
+
+# ALL GET METHODS HAVE TGE SANE LOGIC, JUST FOR DIFFERENT VALUES AND DATATYPES
+
 @app.route("/button-state", methods=["GET"])
 def get_button_state():
     try:
@@ -66,13 +74,14 @@ def get_slider_values():
         result = cursor.fetchone()
         if result:
             return jsonify({
+                # parses incoming DATA to JSON for processing
                 "slider1": result[0],
                 "slider2": result[1],
                 "colour": result[2],
-                "running": bool(result[3])  # convert int to bool
+                "running": bool(result[3])  # convert int to bool (running toggle)
             })
         else:
-            return jsonify({"error": "No slider data found"}), 404
+            return jsonify({"error": "No data found"}), 404
     except Error as e:
         print(f"MySQL error: {e}")
         return jsonify({"error": "Database error"}), 500
@@ -86,6 +95,7 @@ def post_slider_values():
     try:
         data = request.get_json()
 
+        # values to be posted to the database
         slider1 = int(data.get("slider1", 0))
         slider2 = int(data.get("slider2", 0))
         colour = data.get("colour", "#000000")  # default black
@@ -93,6 +103,7 @@ def post_slider_values():
 
         connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
+        # SQL code to insert new data into the database
         cursor.execute("""
             INSERT INTO neopixel_info (slider1, slider2, colour, running, last_modified)
             VALUES (%s, %s, %s, %s, NOW())
@@ -108,6 +119,7 @@ def post_slider_values():
         print(f"App error: {e}")
         return jsonify({"error": "Bad request"}), 400
     finally:
+        # close all connections to ensure no data leaks
         if 'cursor' in locals(): cursor.close()
         if 'connection' in locals() and connection.is_connected(): connection.close()
 
@@ -147,6 +159,7 @@ def get_contact_requests():
 @app.route("/contact-requests", methods=["POST"])
 def post_contact_request():
     try:
+        # not technically an issue, but in the past JSON data came back empty for several stupid reasons, this stopped it for some reason
         data = request.get_json(force=True)
         
         connection = mysql.connector.connect(**DB_CONFIG)
@@ -177,5 +190,7 @@ def post_contact_request():
 # ------------------------
 # Run the server
 # ------------------------
+
+# hosts the server on any IP address, through port 5000 always
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
