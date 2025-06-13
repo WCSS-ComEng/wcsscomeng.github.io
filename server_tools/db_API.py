@@ -17,7 +17,7 @@ app = Flask(__name__)
 # accept requests from listed addresses
 CORS(app)
 
-# Database configuration
+# database configuration
 DB_CONFIG = {
     "host": os.getenv("DB_HOST"),
     "user": os.getenv("DB_USER"),
@@ -26,21 +26,26 @@ DB_CONFIG = {
 }
 
 # ------------------------
-# Route: /button-state
+# route: /button-state
 # ------------------------
 @app.route("/button-state", methods=["GET"])
 def get_button_state():
     try:
+        # connects to database using credentials located in the environment file
         connection = mysql.connector.connect(**DB_CONFIG)
         cursor = connection.cursor()
+        # executes an SQL command, in this case selecting the MOST RECENT input from the db table
         cursor.execute("SELECT state FROM button_values ORDER BY last_modified DESC LIMIT 1")
         result = cursor.fetchone()
+        # gets the result and parses it to JSON
         state = result[0] if result else 0
         return jsonify({"state": state})
     except Error as e:
+        # prints an error if one occurs. database errors are usually issues with credentials
         print(f"MySQL error: {e}")
         return jsonify({"error": "Database error"}), 500
     finally:
+        # close connections when done
         if 'cursor' in locals(): cursor.close()
         if 'connection' in locals() and connection.is_connected(): connection.close()
 
