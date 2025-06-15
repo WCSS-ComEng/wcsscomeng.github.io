@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ <!-- Setup -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mr Murrays Website</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css"> <!-- Adds Styler -->
 </head>
 
 <body>
     <!-- Navbar Section -->
     <nav class="navbar">
         <a href="/" class="navbar__logo">Murray</a>
-        <div class="navbar__toggle" id="mobile-menu">
+        <div class="navbar__toggle" id="mobile-menu"> <!-- Allows for a mobile setup-->
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
         </div>
-        <div class="navbar__menu">
+        <div class="navbar__menu"> <!-- Menu -->
             <a href="index.html" class="navbar__link">Home</a>
             <a href="contact.html" class="navbar__link">Contact</a>
             <a href="admin.html" class="navbar__link">Admin Login</a>
@@ -25,20 +25,22 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Slider Section -->
     <main class="main-wrapper">
         <div class="slider-box">
             <div class="slider-container">
-                <form id="sliderForm">
+                <form id="sliderForm"> <!-- Form -->
+                    <!-- Sliders -->
                     <label for="slider1">Speed:</label>
                     <input type="range" id="slider1" name="slider1" min="0" max="100" value="50">
                     <br>
                     <label for="slider2">Spacing:</label>
                     <input type="range" id="slider2" name="slider2" min="0" max="100" value="60">
                     <br>
+                    <!-- Color Picker -->
                     <label for="colorPicker">Choose a color:</label>
                     <input type="color" id="colorPicker" name="colorPicker" value="#ff0000">
-
+                    <!-- Switch -->
                     <div class="running-toggle">
                         <label class="switch">
                             <br>
@@ -47,19 +49,13 @@
                         </label>
                         <label for="runningToggle">Running Toggle</label>
                     </div>
-
-
-
-
+                    <!-- Submit Button -->
                     <br>
                     <input type="submit" value="Submit">
-
-
-
-
                 </form>
             </div>
-            <p id="statusMessage"></p>
+            <!-- Checks if database is running correctly -->
+            <!-- <p id="statusMessage"></p> -->
         </div>
     </main>
 
@@ -97,5 +93,4 @@
         });
     </script>
 </body>
-
 </html>

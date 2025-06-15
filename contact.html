@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- Setup -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mr Murrays Website</title>
-    <link rel="stylesheet" href="assets/css/contact.css">
+    <link rel="stylesheet" href="assets/css/contact.css"> <!-- Adds Styler -->
 </head>
 
 <body>
     <!-- Navbar Section -->
     <nav class="navbar">
         <a href="/" class="navbar__logo">Murray</a>
-        <div class="navbar__toggle" id="mobile-menu">
+        <div class="navbar__toggle" id="mobile-menu"> <!-- Allows for a mobile setup-->
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
         </div>
-        <div class="navbar__menu">
+        <div class="navbar__menu">  <!-- Menu -->
             <a href="index.html" class="navbar__link">Home</a>
             <a href="contact.html" class="navbar__link">Contact</a>
             <a href="admin.html" class="navbar__link">Admin Login</a>
@@ -26,19 +26,19 @@
     </nav>
 
     <!-- Contact Form -->
-    <main class="form-wrapper">
+    <main class="form-wrapper">  <!-- Main form wrapper -->
         <div class="contact__container">
-            <form id="contactForm" method="POST" action="/contact-requests">
+            <form id="contactForm" method="POST" action="/contact-requests">  <!-- Links to database -->
                 <label for="fname">First name:</label>
-                <input type="text" id="fname" name="first_name" placeholder="John" required><br>
+                <input type="text" id="fname" name="first_name" placeholder="John" required><br>  <!-- First Name -->
 
                 <label for="lname">Last name:</label>
-                <input type="text" id="lname" name="last_name" placeholder="Doe" required><br>
+                <input type="text" id="lname" name="last_name" placeholder="Doe" required><br>  <!-- Last Name -->
 
                 <label for="email">School email:</label>
-                <input type="email" id="email" name="email" placeholder="johndoe1@ocdsb.ca"><br>
+                <input type="email" id="email" name="email" placeholder="johndoe1@ocdsb.ca"><br>  <!-- Email -->
 
-                <div class="grade-group">
+                <div class="grade-group">  <!-- Grade -->
                     <label for="grade">Grade:</label>
                     <label><input type="radio" name="grade" value="9"> 9</label>
                     <label><input type="radio" name="grade" value="10"> 10</label>
@@ -46,13 +46,14 @@
                     <label><input type="radio" name="grade" value="12"> 12</label>
                 </div><br>
 
-                <label for="message">Message:</label>
+                <label for="message">Message:</label>  <!-- Message -->
                 <textarea id="message" name="message" rows="5" cols="40" style="resize: none;"></textarea><br>
 
-                <input type="reset">
+                <input type="reset">  <!-- Reset/Submit Button -->
                 <input type="submit">
             </form>
-            <p id="statusMessage"></p>
+             <!-- Checks if database was working -->
+            <!-- <p id="statusMessage"></p> -->
         </div>
     </main>
 
@@ -91,5 +92,4 @@
         });
     </script>
 </body>
-
 </html>
